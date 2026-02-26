@@ -1,4 +1,6 @@
 ﻿#undef SQLITE // use SQLite if this is #define, use MySQL if it's #undef
+/* Note: SQLite does not need to be installed on the host machine,
+   it is provided by the NuGet SQLite DB provider. */
 
 using BookReviews;
 using BookReviews.Data;
