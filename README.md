@@ -15,3 +15,5 @@ This example uses a MySQL database. This guide shows how to set up a MySQL datab
 - 08-Validation
   - Added validation attributes to the models
   - Revised Review.cshtml to use the Review model and to get the book title from the ViewBag
+- W26-Validation
+  - Updated this branch to use .NET 10.0
