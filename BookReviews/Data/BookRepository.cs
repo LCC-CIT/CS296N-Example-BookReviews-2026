@@ -56,7 +56,15 @@ public class BookRepository : IBookRepository
     // Update a book if it already exists, add it if it doesn't
     public async Task<int> AddOrUpdateBookAsync(Book model)
     {
-        _context.Books.Update(model);
+        if (model.BookId == 0)
+        {
+            _context.Books.Add(model);
+        }
+        else
+        {
+            _context.Books.Update(model);
+        }
+        
         var result = await _context.SaveChangesAsync();
         return result;
         // returns a positive value if successful
