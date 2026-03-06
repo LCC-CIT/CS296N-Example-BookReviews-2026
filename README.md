@@ -1,12 +1,11 @@
-# CS295N-Example-BookReviews-DotNet6
-# CS295N-Example-BookReviews-DotNet6
-Book Review example from LCC-CIT/CS295N-Example-BookReviews migrated to ASP.NET 6.0 MVC
-The migration process is described in https://lcc-cit.github.io/CS295N-CourseMaterials/Notes/UpgradeMvcAppToDotNeT6.html
+# CS296N-Example-BookReviews-DotNet6
 
-This example uses MySQL for the database provider. This guide shows how to set up a MySQL database server on Azure: https://lcc-cit.github.io/CS295N-CourseMaterials/Notes/AzureMySqlSetupGuide.html
- 
-The first branch in this repository is 7-RepositoryAndUnitTests
- 
+- Book Review example code from LCC-CIT/CS295N-Example-BookReviews was migrated to ASP.NET 6.0 MVC.  
+  The migration process is described in https://lcc-cit.github.io/CS295N-CourseMaterials/Notes/UpgradeMvcAppToDotNeT6.html
+- This example uses both MySQL and SQLite database providers--selectable by preprocessor directives.  
+  This guide shows how to set up a MySQL database server on Azure: https://lcc-cit.github.io/CS295N-CourseMaterials/Notes/AzureMySqlSetupGuide.html
+- Winter term 2026 some branches were updated to .NET 10.0.
+
  ## Branchs
  - 7-RepositoryAndUnitTests  
   The repository pattern is implemented to facilitate unit testing of controller methods.  
