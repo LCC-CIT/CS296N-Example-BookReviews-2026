@@ -15,3 +15,9 @@ The first branch in this repository is 7-RepositoryAndUnitTests
   Code to seed the database with some initial book reviews was added.
 - 8B-LinqFiltering  
   Added code to filter reviews by book title or reviewer.
+- W26-Validation  
+  Added code to validate the input when creating a new review.
+- W26-NET10-Authentication
+  Added code to authenticate users using ASP.NET Identity
+- W26-NET10uthorization
+  Added code to authorize users using ASP.NET Identity
