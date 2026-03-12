@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using BookReviews.Models;
-using System.Data;
 
+/* This controller manages user and role administration.
+   Requires Admin role authorization (can be commented out for development).
+   Adapted in 2026 by Brian Bird from code accompanying Murach's ASP.NET Core MVC 2nd Ed.
+   Refactoring assisted by GitHub Copilot, 3/12/2026.
+*/
 namespace BookReviews.Controllers
 {
    // [Authorize(Roles = "Admin")]
@@ -18,8 +21,7 @@ namespace BookReviews.Controllers
         }
         public IActionResult Index()
         {
-            List<AppUser> users = new List<AppUser>();
-            users = userManager.Users.ToList();
+            List<AppUser> users = userManager.Users.ToList();
             foreach(AppUser user in users)
             //foreach (AppUser user in userManager.Users)
             //AppUser user = userManager.FindByNameAsync("admin").Result;
@@ -40,10 +42,10 @@ namespace BookReviews.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            AppUser user = await userManager.FindByIdAsync(id); 
+            AppUser? user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
-                IdentityResult result = await userManager.DeleteAsync(user); 
+                IdentityResult result = await userManager.DeleteAsync(user);
                 if (!result.Succeeded)
                 { // if failed
                     string errorMessage = "";
@@ -60,30 +62,33 @@ namespace BookReviews.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToAdmin(string id)
         {
-            IdentityRole adminRole = await roleManager.FindByNameAsync("Admin"); 
+            IdentityRole? adminRole = await roleManager.FindByNameAsync("Admin");
             if (adminRole == null)
             {
                 TempData["message"] = "Admin role does not exist. " + "Click 'Create Admin Role' button to create it.";
             }
             else
             {
-                AppUser user = await userManager.FindByIdAsync(id); 
-                await userManager.AddToRoleAsync(user, adminRole.Name);
+                AppUser? user = await userManager.FindByIdAsync(id);
+                if (user != null)
+                    await userManager.AddToRoleAsync(user, adminRole.Name!);
             }
             return RedirectToAction("Index");
         }
         [HttpPost]
         public async Task<IActionResult> RemoveFromAdmin(string id)
         {
-            AppUser user = await userManager.FindByIdAsync(id); 
-            await userManager.RemoveFromRoleAsync(user, "Admin"); 
+            AppUser? user = await userManager.FindByIdAsync(id);
+            if (user != null)
+                await userManager.RemoveFromRoleAsync(user, "Admin");
             return RedirectToAction("Index");
         }
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            IdentityRole role = await roleManager.FindByIdAsync(id); 
-            await roleManager.DeleteAsync(role); 
+            IdentityRole? role = await roleManager.FindByIdAsync(id);
+            if (role != null)
+                await roleManager.DeleteAsync(role);
             return RedirectToAction("Index");
         }
         [HttpPost]
