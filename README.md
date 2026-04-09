@@ -1,4 +1,4 @@
-# CS296N-Example-BookReviews
+# CS296N Example: BookReviews
 Book Review example from LCC-CIT/CS295N-Example-BookReviews migrated to ASP.NET 6.0 MVC
 The last two branches have been updated to .NET 10
 
