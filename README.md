@@ -21,3 +21,4 @@ This example uses a MySQL database. This guide shows how to set up a MySQL datab
   Added code to authenticate users using ASP.NET Identity
 - W26-NET10-Authorization
   Added code to authorize users using ASP.NET Identity
+- CI A branch with the GitHub Actions workflow file
