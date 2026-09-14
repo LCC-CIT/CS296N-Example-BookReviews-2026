@@ -1,4 +1,6 @@
 ﻿#undef SQLITE // use SQLite if this is #define, use MySQL if it's #undef
+/* Note: SQLite does not need to be installed on the host machine,
+   it is provided by the NuGet SQLite DB provider. */
 
 using BookReviews;
 using BookReviews.Data;
@@ -14,7 +16,16 @@ var connectionString = builder.Configuration.GetConnectionString("SqliteConnecti
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 #else // The default database is MySQL
-var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+// Get the base connection string from appsettings.json
+var baseConnectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+
+// Get the database credentials from User Secrets (or environment variables)
+var dbUsername = builder.Configuration["DbUsername"];
+var dbPassword = builder.Configuration["DbPassword"];
+
+// Append credentials from User Secrets to the base connection string
+var connectionString = $"{baseConnectionString}User={dbUsername};Password={dbPassword};";
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString));
 #endif
@@ -49,7 +60,7 @@ app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
 
-app.UseAuthentication();
+app.UseAuthentication();        
 app.UseAuthorization();
 
 using (var scope = app.Services.CreateScope())
